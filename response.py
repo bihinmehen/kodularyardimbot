@@ -1,3 +1,37 @@
+import requests
+import json
+import datetime
+
+
+def durumGetir():
+    v = requests.get("https://status.kodular.io/api/services")
+    veriler = json.loads(v.content)
+    durumlar = {}
+    for veri in veriler:
+        if not veri["online"]:
+            durumlar[veri["name"]] = veri["last_success"]
+    return durumlar
+
+
+def zamanHesapla(zaman):
+
+    zaman = datetime.datetime.strptime(zaman.split(
+        ".")[0], "%Y-%m-%dT%H:%M:%S")
+
+    fark = (datetime.datetime.now() - zaman).seconds
+    farkCevir = str(datetime.timedelta(seconds=fark)).split(":")
+
+    durum = ""
+    if farkCevir[0] != 0:
+        durum = f"{farkCevir[0]} saat {farkCevir[1]} dakika önce"
+    elif farkCevir[1] != 0:
+        durum = f"{farkCevir[1]} dakika önce"
+    else:
+        durum = f"{farkCevir[2]} saniye önce"
+
+    return durum
+
+
 def blokGetir(isim):
     isim = str(isim).lower()
     match isim:
@@ -249,3 +283,5 @@ def blokGetir(isim):
             return "https://docs.kodular.io/assets/images/blocks/procedure/return.png"
         case "procedure result":
             return "https://docs.kodular.io/assets/images/blocks/procedure/callreturn.png"
+
+    return f"{isim} bulunamadı"
