@@ -249,5 +249,3 @@ def blokGetir(isim):
             return "https://docs.kodular.io/assets/images/blocks/procedure/return.png"
         case "procedure result":
             return "https://docs.kodular.io/assets/images/blocks/procedure/callreturn.png"
-
-    return f"{isim} bulunamadı"
