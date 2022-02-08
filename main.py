@@ -24,7 +24,7 @@ def mesajGonder(update, context):
     bot.send_document(chat_id, resim)
 
 
-def mesajGelince():
+def main():
     updater = Updater(API_KEY, use_context=True)
     dp = updater.dispatcher
 
@@ -36,4 +36,4 @@ def mesajGelince():
 
 
 if __name__ == "__main__":
-    mesajGelince()
+    main()
